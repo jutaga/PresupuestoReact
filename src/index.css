@@ -8,9 +8,14 @@ body {
   /* fallback for old browsers */
   /* background: linear-gradient(to right, #004e92, #000428);  */
   background: linear-gradient(to right, #0072C6, #00A4E4);
-  
-   /* background: linear-gradient(to right, #9C9EB9, #BDBDD7, #D1D0E7); */
 
+  /* background: linear-gradient(to right, #9C9EB9, #BDBDD7, #D1D0E7); */
 
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
