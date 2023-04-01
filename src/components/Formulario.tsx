@@ -5,13 +5,12 @@ import { Gasto } from "../interfaces/Gasto.interface";
 
 
 
-export const Formulario = ({agregarGastos} : any) => {
+export const Formulario = ({ setGastoApp, setcrearGasto }: any) => {
 
   // const [cantidad, setCantidad] = useState<number>(0);
   const [gasto, setGasto] = useState<Gasto>({
     nombre: '',
     cantidad: 0,
-    id: ''
   });
 
   const { nombre, cantidad } = gasto;
@@ -21,43 +20,42 @@ export const Formulario = ({agregarGastos} : any) => {
 
   const guardarForm = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target
-    setGasto((gasto ) => ({
+    setGasto((gasto) => ({
       ...gasto,
-      [name] : value,
-    })); 
+      [name]: value,
+    }));
   }
 
   //Cuando envia el form 
   const agregarGasto = (e: React.FormEvent<HTMLFormElement>) => {
+
     e.preventDefault();
 
-    
-
     //validar el formulario
-    if(cantidad < 1 || isNaN(cantidad) || nombre.trim() === '' ){
+    if (cantidad < 1 || isNaN(cantidad) || nombre.trim() === '') {
       setError(true);
 
       setTimeout(() => {
         setError(false);
       }, 3000);
+
+      return;
     }
 
     //construir el gasto con id
     const gastoId = {
       ...gasto,
-      id : shortid.generate()
+      id: shortid.generate()
     }
 
-    setGasto(gastoId);
-
     //pasar el gasto al componente principal
-    agregarGastos(gasto);    
+    setGastoApp(gastoId);
+    setcrearGasto(true);
 
     //resetear el form
     setGasto({
-      cantidad : 0,
-      id :'',
-      nombre :'',
+      cantidad: 0,
+      nombre: '',
     })
   }
 
@@ -78,7 +76,7 @@ export const Formulario = ({agregarGastos} : any) => {
         </div>
 
         <div>
-          <label className="form-label fw-semibold" htmlFor="cantidad">Cantidad Gasto</label>
+          <label className="form-label fw-semibold mt-3" htmlFor="cantidad">Cantidad Gasto</label>
           <input onChange={guardarForm} value={cantidad} name="cantidad" className="form-control mb-2" id="cantidad" type="number" placeholder="Ej.506" />
         </div>
 

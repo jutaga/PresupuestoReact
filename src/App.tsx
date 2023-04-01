@@ -1,25 +1,45 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Pregunta } from "./components/Pregunta"
 import { Formulario } from "./components/Formulario";
 import { Gasto } from "./interfaces/Gasto.interface";
-
+import { Listado } from "./components/Listado";
+import { ControlPresupuesto } from "./components/ControlPresupuesto";
 export const App = () => {
 
   const [presupuesto, setPresupuesto] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
   const [mostrarPregunta, setMostrarPregunta] = useState<boolean>(true);
-  const [gastos, setGastos] = useState<Gasto[]>([])
+  const [gastos, setGastos] = useState<Gasto[]>([]);
+  const [gastoApp, setGastoApp] = useState<Gasto>({
+    cantidad: 0,
+    nombre: '',
+    id: '',
+  });
 
-  //Agregamos el nuevo gasto
-  const agregarGastos = (gasto: Gasto) => {
+  const [crearGasto, setcrearGasto] = useState<boolean>(false);
 
-    setGastos([
-      ...gastos,
-      gasto
-    ]);
+  //Actualiza el restando
+  useEffect(() => {
 
-    console.log(gastos);
-  }
+    if (crearGasto) {
+      //Agrega el nuevo Presupuesto
+      setGastos([
+        ...gastos,
+        gastoApp
+      ]);
+
+      const presupuestoRestante = total - gastoApp.cantidad;
+      setTotal(presupuestoRestante);
+
+      //Resta del presupuesto actuak
+      setcrearGasto(false);
+
+    }
+
+  }, [gastoApp])
+
+
+
 
 
   return (
@@ -36,10 +56,11 @@ export const App = () => {
               :
               <div className="row">
                 <div className="col-md-6">
-                  <Formulario agregarGastos={agregarGastos} />
+                  <Formulario setcrearGasto={setcrearGasto} setGastoApp={setGastoApp} />
                 </div>
                 <div className="col-md-6">
-                  2
+                  <Listado gastos={gastos} />
+                  <ControlPresupuesto total={total} presupuesto={presupuesto} />
                 </div>
               </div>
           }
