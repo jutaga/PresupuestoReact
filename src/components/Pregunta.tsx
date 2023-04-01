@@ -1,7 +1,13 @@
 import { useState } from "react"
 import { ErrorMsj } from "./ErrorMsj";
 
-export const Pregunta = () => {
+interface PreguntaProps {
+    setPresupuesto: React.Dispatch<React.SetStateAction<number>>;
+    setTotal: React.Dispatch<React.SetStateAction<number>>;
+    setMostrarPregunta : React.Dispatch<React.SetStateAction<boolean>>
+  }
+
+export const Pregunta = ({setTotal, setPresupuesto, setMostrarPregunta}: PreguntaProps) => {
 
     const [cantidad, setCantidad] = useState<number>(0);
     const [error, setError] = useState<boolean>(false);
@@ -28,6 +34,9 @@ export const Pregunta = () => {
 
         //Accion cuando cumple la validacion
         setError(false);
+        setPresupuesto(cantidad);
+        setTotal(cantidad);
+        setMostrarPregunta(false);
     }
 
 
@@ -46,9 +55,8 @@ export const Pregunta = () => {
                     <input min={0} onChange={handlePresupuesto} type="number" className="form-control" id="floatingInput" placeholder="name@example.com" />
                     <label htmlFor="floatingInput">Escribe Presupuesto</label>
                 </div>
-                <button type="submit" className="btn btn-dark w-100"><i className="bi bi-cash-stack"></i> Definir Presupuesto</button>
+                <button type="submit" className="btn btn-dark w-100 mb-4"><i className="bi bi-cash-stack"></i> Definir Presupuesto</button>
             </form>
-
         </>
     )
 }
