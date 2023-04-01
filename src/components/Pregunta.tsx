@@ -1,11 +1,8 @@
 import { useState } from "react"
 import { ErrorMsj } from "./ErrorMsj";
+import { PreguntaProps } from "../interfaces/Props.interface";
 
-interface PreguntaProps {
-    setPresupuesto: React.Dispatch<React.SetStateAction<number>>;
-    setTotal: React.Dispatch<React.SetStateAction<number>>;
-    setMostrarPregunta : React.Dispatch<React.SetStateAction<boolean>>
-  }
+
 
 export const Pregunta = ({setTotal, setPresupuesto, setMostrarPregunta}: PreguntaProps) => {
 

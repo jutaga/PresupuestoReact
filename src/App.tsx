@@ -1,12 +1,25 @@
 import { useState } from "react"
 import { Pregunta } from "./components/Pregunta"
 import { Formulario } from "./components/Formulario";
+import { Gasto } from "./interfaces/Gasto.interface";
 
 export const App = () => {
 
   const [presupuesto, setPresupuesto] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
   const [mostrarPregunta, setMostrarPregunta] = useState<boolean>(true);
+  const [gastos, setGastos] = useState<Gasto[]>([])
+
+  //Agregamos el nuevo gasto
+  const agregarGastos = (gasto: Gasto) => {
+
+    setGastos([
+      ...gastos,
+      gasto
+    ]);
+
+    console.log(gastos);
+  }
 
 
   return (
@@ -23,7 +36,7 @@ export const App = () => {
               :
               <div className="row">
                 <div className="col-md-6">
-                  <Formulario />
+                  <Formulario agregarGastos={agregarGastos} />
                 </div>
                 <div className="col-md-6">
                   2
