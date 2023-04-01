@@ -41,7 +41,6 @@ export const App = () => {
 
 
 
-
   return (
     <div className="container">
       <header >
@@ -59,8 +58,8 @@ export const App = () => {
                   <Formulario setcrearGasto={setcrearGasto} setGastoApp={setGastoApp} />
                 </div>
                 <div className="col-md-6">
-                  <Listado gastos={gastos} />
-                  <ControlPresupuesto total={total} presupuesto={presupuesto} />
+                  <Listado total={total} setTotal={setTotal} gastos={gastos} setGastos={setGastos} />
+                  <ControlPresupuesto  total={total} presupuesto={presupuesto} />
                 </div>
               </div>
           }
